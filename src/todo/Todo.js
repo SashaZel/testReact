@@ -14,21 +14,21 @@ const initialTodoState = [
 ];
 
 const todosReducer = (state, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case 'TODO_DONE':
             return state.map((e) => {
-                    if(e.id === action.id) {
-                      return {...e, isDone: true};
-                    }
-                    return e;      
-                  });
+                if (e.id === action.id) {
+                    return { ...e, isDone: true };
+                }
+                return e;
+            });
         case 'TODO_UNDONE':
             return state.map((e) => {
-                    if(e.id === action.id) {
-                      return {...e, isDone: false};
-                    }
-                    return e;      
-                  });
+                if (e.id === action.id) {
+                    return { ...e, isDone: false };
+                }
+                return e;
+            });
         case 'TODO_ADD':
             return [...state, { id: action.payload.id, text: action.payload.text, isDone: false }];
         case 'TODO_DELETE':
@@ -51,7 +51,7 @@ export const Todo = () => {
     const addItemTodo = (e) => {
         e.preventDefault();
         if (!e.target[0].value) return;
-        dispatch({ type: 'TODO_ADD', payload: { id: new Date().toISOString(), text: e.target[0].value}});
+        dispatch({ type: 'TODO_ADD', payload: { id: new Date().toISOString(), text: e.target[0].value } });
         //console.log(e.target[0].value);
         setTextInput('');
     };
@@ -68,7 +68,7 @@ export const Todo = () => {
                     return (<li key={e.id}>
                         <label>
                             <input type="checkbox" onChange={() => handleTodo(e)} checked={e.isDone}></input>
-                            <button onClick={() => dispatch({type: 'TODO_DELETE', id: e.id })}>Del </button> {e.text}
+                            <button onClick={() => dispatch({ type: 'TODO_DELETE', id: e.id })}>Del </button> {e.text}
                         </label>
                     </li>);
                 })}
